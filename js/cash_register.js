@@ -1,5 +1,6 @@
 var myCalc = Calculator();
 var answer = false;
+var decimalinput = false;
 
 zero.addEventListener('click',function() {if (parseFloat(display.innerHTML) !== 0 || display.innerHTML.indexOf('.') !== -1) {clearDisplay(); display.innerHTML += 0;} });
 
@@ -21,7 +22,7 @@ eight.addEventListener('click',function() {clearDisplay(); display.innerHTML += 
 
 nine.addEventListener('click',function() {clearDisplay(); display.innerHTML += 9;});
 
-decimal.addEventListener('click',function() {if (display.innerHTML.indexOf('.') === -1 || answer === true) {clearDisplay(); display.innerHTML += '.';}});
+decimal.addEventListener('click',function() {if (display.innerHTML.indexOf('.') === -1 || answer === true) {decimalinput = true; clearDisplay(); display.innerHTML += '.';}});
 
 doubleZero.addEventListener('click',function() {if (display.innerHTML.indexOf('.') === -1) {display.innerHTML += '.00';}});
 
@@ -68,8 +69,13 @@ withdrawCash.addEventListener('click', function() {
 
 function clearDisplay() {
   console.log(answer);
-  if (parseFloat(display.innerHTML) === 0 || answer === true) {
-    display.innerHTML = null;
+  if ((parseFloat(display.innerHTML) === 0 && display.innerHTML.indexOf('.') === -1) || answer === true) {
+    if (decimalinput === true) {
+      display.innerHTML = 0;
+      decimalinput = false;
+    }else{
+      display.innerHTML = null;
+    }
     answer = false;
   }
 }
