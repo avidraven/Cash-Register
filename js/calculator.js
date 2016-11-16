@@ -11,7 +11,7 @@ function Calculator() {
   function deposit() {
     if (answer === false) {
       _memory = parseFloat(display.innerHTML);
-      _balance += _memory;
+      _balance += Math.round((_memory + 0.0001) * 100) / 100; //adding 0.0001 avoids JS floating point issue
       clear();
     }
   }
@@ -19,7 +19,7 @@ function Calculator() {
   function withdraw() {
     if (answer === false) {
       _memory = parseFloat(display.innerHTML);
-      _balance -= _memory;
+      _balance -= Math.round((_memory + 0.0001) * 100) / 100;
       if (_balance < 0) {
         _balance = 0;
       }
@@ -30,7 +30,8 @@ function Calculator() {
   function getBalance() {
     clear();
     _total = _balance;
-    display.innerHTML = _balance;
+    display.innerHTML = _total;
+    // display.innerHTML = '$ ' + _balance;  //doesn't parse to number with parseFloat
     return _balance;
   }
 
