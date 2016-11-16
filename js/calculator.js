@@ -2,62 +2,125 @@
 console.log("SANITY");
 
 function Calculator() {
+  var _memory = 0;
   var _total = 0;
   var _balance = 0;
+  var _operator =null;
+  clear();
 
-  function load(x) {
-    _total = x;
+  function deposit() {
+    if (answer === false) {
+      _memory = parseFloat(display.innerHTML);
+      _balance += _memory;
+      clear();
+    }
   }
 
-  function deposit(x) {
-    _balance += x;
+  function withdraw() {
+    if (answer === false) {
+      _memory = parseFloat(display.innerHTML);
+      _balance -= _memory;
+      if (_balance < 0) {
+        _balance = 0;
+      }
+      clear();
+    }
   }
 
   function getBalance() {
+    clear();
+    _total = _balance;
+    display.innerHTML = _balance;
     return _balance;
   }
 
   function equals() {
-    return _total;
-  }
+    if (answer === false) {
+      _memory = parseFloat(display.innerHTML);
+      if (_operator === add){
+        _total += _memory;
+      }else
+      if (_operator === subtract){
+        _total -= _memory;
+      }else
+      if (_operator === multiply){
+        _total = _total * _memory;
+      }else
+      if (_operator === divide){
+        _total = _total / _memory;
+      }
+      else{
+        _total = _memory;
+      }
+    }else{
+      _memory = _total;
+    }
 
-  function withdraw(x) {
-    _balance -= x;
+    display.innerHTML = _total;
+    _operator = null;
+    _memory = 0;
+
+    return _total;
   }
 
   //MATH FUNCTIONS
 
-  function add(x) {
-    _total += x;
+  function add() {
+    if (_operator !== null && answer === false) {
+      _total = equals();
+    }else{
+      _total = parseFloat(display.innerHTML);
+    }
+    display.innerHTML = _total;
+    _operator = add;
   }
 
-  function subtract(x) {
-    _total -= x;
+  function subtract() {
+    if (_operator !== null && answer === false) {
+      _total = equals();
+    }else{
+      _total = parseFloat(display.innerHTML);
+    }
+    display.innerHTML = _total;
+    _operator = subtract;
   }
 
-  function multiply(x) {
-    _total = _total * x;
+  function multiply() {
+    if (_operator !== null && answer === false) {
+      _total = equals();
+    }else{
+      _total = parseFloat(display.innerHTML);
+    }
+    display.innerHTML = _total;
+    _operator = multiply;
   }
 
-  function divide(x) {
-    _total = _total / x;
+  function divide() {
+    if (_operator !== null && answer === false) {
+      _total = equals();
+    }else{
+      _total = parseFloat(display.innerHTML);
+    }
+    display.innerHTML = _total;
+    _operator = divide;
   }
 
   function clear() {
     _total = 0;
-    return _total;
+    _memory = 0;
+    _operator = null;
+    display.innerHTML = 0;
   }
 
-  return {
-    load: load,
-    deposit: deposit,
-    withdraw: withdraw,
-    getBalance: getBalance,
-    equals: equals,
-    add: add,
-    subtract: subtract,
-    multiply: multiply,
-    divide: divide,
-    clear: clear
-  };
+return {
+  deposit: deposit,
+  withdraw: withdraw,
+  getBalance: getBalance,
+  equals: equals,
+  add: add,
+  subtract: subtract,
+  multiply: multiply,
+  divide: divide,
+  clear: clear,
+};
 }
