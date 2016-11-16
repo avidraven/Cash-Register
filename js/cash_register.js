@@ -21,7 +21,7 @@ eight.addEventListener('click',function() {clearDisplay(); display.innerHTML += 
 
 nine.addEventListener('click',function() {clearDisplay(); display.innerHTML += 9;});
 
-decimal.addEventListener('click',function() {if (display.innerHTML.indexOf('.') === -1 && answer === false) {clearDisplay(); display.innerHTML += '.';}});
+decimal.addEventListener('click',function() {if (display.innerHTML.indexOf('.') === -1 || answer === true) {clearDisplay(); display.innerHTML += '.';}});
 
 doubleZero.addEventListener('click',function() {if (display.innerHTML.indexOf('.') === -1) {display.innerHTML += '.00';}});
 
