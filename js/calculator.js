@@ -9,30 +9,26 @@ function Calculator() {
   clear();
 
   function deposit() {
-    if (answer === false) {
-      _memory = parseFloat(display.innerHTML);
-      _balance += Math.round((_memory + 0.0001) * 100) / 100; //adding 0.0001 avoids JS floating point issue
-      clear();
-    }
+    _memory = parseFloat(display.innerHTML);
+    // there must be a better way to reliably get a number to two decimals
+    _balance += parseFloat((Math.round(_memory * 100) / 100).toFixed(2));
+    clear();
   }
 
   function withdraw() {
-    if (answer === false) {
-      _memory = parseFloat(display.innerHTML);
-      _balance -= Math.round((_memory + 0.0001) * 100) / 100;
-      if (_balance < 0) {
-        _balance = 0;
-      }
-      clear();
+    _memory = parseFloat(display.innerHTML);
+    _balance -= parseFloat((Math.round(_memory * 100) / 100).toFixed(2));
+    if (_balance < 0) {
+      _balance = 0;
     }
+    clear();
   }
 
   function getBalance() {
     clear();
-    _total = _balance;
+    _total = _balance.toFixed(2);
     display.innerHTML = _total;
-    // display.innerHTML = '$ ' + _balance;  //doesn't parse to number with parseFloat
-    return _balance;
+    return _total;
   }
 
   function equals() {
